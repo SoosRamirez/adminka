@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% block adddata %}
+    <table class="table table-bordered mt-4">
+        <form id="add_form" method="get">
+        <tbody>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Название</th>
+                <th scope="col">Тип блюд</th>
+                <th scope="col">Кухня</th>
+                <th scope="col">Тип заведения</th>
+                <th scope="col">Средний чек</th>
+                <th scope="col">Ссылка</th>
+
+            </tr>
+            <tr>
+
+                    <th scope="col"><input name = 'id' type="text"></th>
+                    <th scope="col"><input name = 'name' type="text"></th>
+                    <th scope="col">
+                        <input type="checkbox" name="breakfast" value="True">Завтрак
+                        <input type="checkbox" name="lunch" value="True">Обед
+                        <input type="checkbox" name="dinner" value="True">Ужин
+                        </th>
+                    <th scope="col">
+                        <input type="checkbox" name="european" value="True">Европейская<br>
+                        <input type="checkbox" name="authors" value="True">Авторска<br>
+                        <input type="checkbox" name="italian" value="True">Итальянская<br>
+                        <input type="checkbox" name="asian" value="True">Азиатская<br>
+                        <input type="checkbox" name="vegetarian" value="True">Вегетарианская<br>
+                        <input type="checkbox" name="japan" value="True">Японская<br>
+                    </th>
+                    <th scope="col">
+                        <input type="checkbox" name="cafe" value="True">Кафе<br>
+                        <input type="checkbox" name="restaurant" value="True">Ресторан<br>
+                        <input type="checkbox" name="bar" value="True">Бар<br>
+                        <input type="checkbox" name="shop" value="True">Магазин<br>
+                        </th>
+                    <th scope="col"><input name = 'mean_prices' type="text"></th>
+                    <th scope="col"><input name = 'links' type="text"></th>
+            </tr>
+            <tr>
+                <th scope="col">Описание</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Картинка</th>
+                <th scope="col">Время работы</th>
+                <th scope="col">Район</th>
+                <th scope="col">Координата 1</th>
+                <th scope="col">Координата 2</th>
+            </tr>
+            <tr>
+                    <th scope="col"><input name = 'description' type="text"></th>
+                    <th scope="col"><input name = 'address' type="text"></th>
+                    <th scope="col"><input name = 'picture' type="text"></th>
+                    <th scope="col"><input name = 'time' type="text"></th>
+                    <th scope="col"><input name = 'district' type="text"></th>
+                    <th scope="col"><input name = 'a' type="number"></th>
+                    <th scope="col"><input name = 'b' type="number"></th>
+            </tr>
+        </tbody>
+    <button form="add_form" type="submit" class="btn btn-primary m-4">Добавить</button>
+            </form>
+
+    </table>
+{% endblock %}
+
+
