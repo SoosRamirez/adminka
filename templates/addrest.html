@@ -1,67 +1,77 @@
 {% extends 'index.html' %}
 {% block adddata %}
-    <table class="table table-bordered mt-4">
-        <form id="add_form" method="get">
-        <tbody>
-            <tr>
-                <th scope="col">id</th>
-                <th scope="col">Название</th>
-                <th scope="col">Тип блюд</th>
-                <th scope="col">Кухня</th>
-                <th scope="col">Тип заведения</th>
-                <th scope="col">Средний чек</th>
-                <th scope="col">Ссылка</th>
+    <div class="container mt-4">
+        <form class="row g-3" method="get" id="add-form">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="col-md-6">
+                <label for="mean_prices" class="form-label">Средрний чек</label>
+                <input type="text" class="form-control" id="mean_prices" name="mean_prices">
+            </div>
+        <div class="col-md-3">
+            <label for="type_of_meal" class="form-label">Тип блюд</label>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_meal"name="breakfast" value="True">Завтрак<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_meal"name="lunch" value="True">Обед<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_meal"name="dinner" value="True">Ужин<br></div>
+        </div>
+        <div class="col-md-3">
+            <label for="type_of_food" class="form-label">Кухня</label>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="european" value="True">Европейская<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="authors" value="True">Авторская<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="italian" value="True">Итальянская<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="asian" value="True">Восточная<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="vegetarian" value="True">Вегетрианская<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_food"name="japan" value="True">Японская<br></div>
+        </div>
+        <div class="col-md-3">
+            <label for="type_of_restaurant" class="form-label">Тип заведения</label>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_restaurant"name="cafe" value="True">Кафе<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_restaurant"name="restaurant" value="True">Ресторан<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_restaurant"name="bar" value="True">Бар<br></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="type_of_restaurant"name="shop" value="True">Магазин<br></div>
+        </div>
+        <div class="col-12">
+            <label for="description" class="form-label">Описание</label>
+            <input type="text" class="form-control" id="description" placeholder="" name="description">
+        </div>
+        <div class="col-12">
+            <label for="adres" class="form-label">Адрес</label>
+            <input type="text" class="form-control" id="adres" placeholder="" name="address">
+        </div>
+        <div class="col-md-6">
+            <label for="Link" class="form-label">Ссылка</label>
+            <input type="text" class="form-control" id="Link" name="link">
+        </div>
+        <div class="col-md-4">
+            <label for="pic" class="form-label">Картинка</label>
+            <input type="text" class="form-control" id="pic" name="picture">
+        </div>
+        <div class="col-md-2">
+            <label for="time" class="form-label">Время работы</label>
+            <input type="text" class="form-control" id="time" name="time">
+        </div>
+        <div class="col-md-4">
+            <label for="district" class="form-label">Район</label>
+            <input type="text" class="form-control" id="district" name="district">
 
-            </tr>
-            <tr>
+        </div>
+        <div class="col-md-4">
+            <label for="cord1" class="form-label">Координата 1</label>
+            <input type="number" step="any" class="form-control" id="cord1" name='a'>
 
-                    <th scope="col"><input name = 'id' type="text"></th>
-                    <th scope="col"><input name = 'name' type="text"></th>
-                    <th scope="col">
-                        <input type="checkbox" name="breakfast" value="True">Завтрак
-                        <input type="checkbox" name="lunch" value="True">Обед
-                        <input type="checkbox" name="dinner" value="True">Ужин
-                        </th>
-                    <th scope="col">
-                        <input type="checkbox" name="european" value="True">Европейская<br>
-                        <input type="checkbox" name="authors" value="True">Авторска<br>
-                        <input type="checkbox" name="italian" value="True">Итальянская<br>
-                        <input type="checkbox" name="asian" value="True">Азиатская<br>
-                        <input type="checkbox" name="vegetarian" value="True">Вегетарианская<br>
-                        <input type="checkbox" name="japan" value="True">Японская<br>
-                    </th>
-                    <th scope="col">
-                        <input type="checkbox" name="cafe" value="True">Кафе<br>
-                        <input type="checkbox" name="restaurant" value="True">Ресторан<br>
-                        <input type="checkbox" name="bar" value="True">Бар<br>
-                        <input type="checkbox" name="shop" value="True">Магазин<br>
-                        </th>
-                    <th scope="col"><input name = 'mean_prices' type="text"></th>
-                    <th scope="col"><input name = 'links' type="text"></th>
-            </tr>
-            <tr>
-                <th scope="col">Описание</th>
-                <th scope="col">Адрес</th>
-                <th scope="col">Картинка</th>
-                <th scope="col">Время работы</th>
-                <th scope="col">Район</th>
-                <th scope="col">Координата 1</th>
-                <th scope="col">Координата 2</th>
-            </tr>
-            <tr>
-                    <th scope="col"><input name = 'description' type="text"></th>
-                    <th scope="col"><input name = 'address' type="text"></th>
-                    <th scope="col"><input name = 'picture' type="text"></th>
-                    <th scope="col"><input name = 'time' type="text"></th>
-                    <th scope="col"><input name = 'district' type="text"></th>
-                    <th scope="col"><input name = 'a' type="number"></th>
-                    <th scope="col"><input name = 'b' type="number"></th>
-            </tr>
-        </tbody>
-    <button form="add_form" type="submit" class="btn btn-primary m-4">Добавить</button>
-            </form>
+        </div>
+        <div class="col-md-4">
+            <label for="cord2" class="form-label">Координата 2</label>
+            <input type="number" step="any" class="form-control" id="cord2" name='b'>
 
-    </table>
+        </div>
+        <div class="col-12">
+            <button type="submit" form="add-form" class="btn btn-primary">Добавить</button>
+        </div>
+</form>
+    </div>
 {% endblock %}
 
 

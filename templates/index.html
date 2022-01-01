@@ -46,69 +46,65 @@
     <link href="../static/main.css" rel="stylesheet">
   </head>
   <body>
+  {% url 'home' as url_home %}
+  {% url 'addpage' as url_addpage %}
+  {% url 'addadmin' as url_addadmin %}
+  {% url 'login' as url_login %}
+  {% url 'logout' as url_logout %}
+  {% url 'managebuttons' as url_managebuttons %}
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
 
-<div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-      </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{{ url_home }}" class="nav-link px-2 {%if url_home == request.path%} text-secondary{% else %}text-white{% endif %}">Показать все рестораны</a></li>
+          <li><a {% if request.user.is_authenticated %} href="{{ url_addpage }}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_addpage == request.path%} text-secondary{% else %}text-white{% endif %}">Добавить ресторан</a></li>
+          <li><a {% if request.user.is_authenticated %} href="{{url_addadmin}}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_addadmin == request.path%} text-secondary{% else %}text-white{% endif %}">Добавить нового администратора</a></li>
+          <li><a {% if request.user.is_authenticated %} href="{{url_managebuttons}}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_managebuttons == request.path%} text-secondary{% else %}text-white{% endif %}">Изменить интерфейс бота</a></li>
+        </ul>
 
-
-
-      <ul class="nav col-4 col-md-auto mb-lg-1 justify-content-center mb-md-0">
-          {% url 'home' as url_home %}
-          {% url 'addpage' as url_addpage %}
-          {% url 'addadmin' as url_addadmin %}
-          {% url 'login' as url_login %}
-          {% url 'logout' as url_logout %}
-          {% url 'managebuttons' as url_managebuttons %}
-          <li><a href="{{ url_home }}" class="nav-link px-2 {%if url_home == request.path%} link-secondary{% else %}link-dark{% endif %}">Показать все рестораны</a></li>
-          <li><a {% if request.user.is_authenticated %} href="{{ url_addpage }}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_addpage == request.path%} link-secondary{% else %}link-dark{% endif %}">Добавить ресторан</a></li>
-          <li><a {% if request.user.is_authenticated %} href="{{url_addadmin}}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_addadmin == request.path%} link-secondary{% else %}link-dark{% endif %}">Добавить нового администратора</a></li>
-          <li><a {% if request.user.is_authenticated %} href="{{url_managebuttons}}"{% else %}href="{{ url_home }}"{% endif %} class="nav-link px-2 {%if url_managebuttons == request.path%} link-secondary{% else %}link-dark{% endif %}">Изменить интерфейс бота</a></li>
-
-      </ul>
-{% if request.user.is_authenticated %}
-    <div class="col-mb-3 text-end">
-          <a href="{{ url_logout }}">
-          <button type="button" class="btn btn-outline-primary me-2">Logout</button>
-          </a>
+        <div class="text-end">
+            {% if request.user.is_authenticated %}
+                <a href="{{ url_logout }}">
+                    <button type="button" class="btn btn-outline-primary me-2">Logout</button>
+                </a>
+            {% else %}
+                <a href="{{ url_login }}">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                </a>
+                </div>
+            {% endif %}
       </div>
-    {% else %}
-      <div class="col-mb-3 text-end">
-          <a href="{{ url_login }}">
-          <button type="button" class="btn btn-outline-primary me-2">Login</button>
-          </a>
-      </div>
-    {% endif %}
-    </header>
-  </div>
-
-<div class="b-example-divider">
+    </div>
+  </header>
+<div class="b-example-divider"></div>
 {% block adddata %}
-      <ul class="nav col-12  mb-2 justify-content-left mb-md-0">
-        <li><a class="nav-link px-2 link-dark">Название</a></li>
-        <li><a class="nav-link px-2 link-dark"></a></li>
-        <li><a class="nav-link px-2 link-dark">Ссылка</a></li>
-        <li><a class="nav-link px-2 link-dark"></a></li>
-        <li><a class="nav-link px-2 link-dark">Средний чек</a></li>
-        <li><a class="nav-link px-2 link-dark"></a></li>
-        <li><a class="nav-link px-2 link-dark">Геолокация</a></li>
-      </ul>
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Ссылка</th>
+        <th scope="col">Средний чек</th>
+        <th scope="col">Геолокация</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for i in restic %}
-    <ul class="list-group">
-        <li><a class="list-group-item mt-4">{{ i.name }}
-            <span href={{i.link }} class="m-2">{{ i.link }}</span>
-            <span class="m-2">{{ i.mean_prices }}</span>
-            <span>{{ i.address }}</span>
-            <span class="float-end m-2">Редактировать</span>
-            <span class="float-end m-2">Удалить</span>
-        </a></li>
-      </ul>
+        <tr>
+            <th scope="row">{{ i.name }}</th>
+            <td>{{ i.link }}</td>
+            <td>{{ i.mean_prices }}</td>
+            <td>{{ i.address }}</td>
+            <td class="float-end mx-2">Редактировать</td>
+            <td class="float-end mx-2">Удалить</td>
+        </tr>
     {% endfor %}
+    </tbody>
+    </table>
 {% endblock %}
-      </div>
-
   </body>
 </html>
 

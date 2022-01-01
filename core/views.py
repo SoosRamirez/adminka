@@ -1,34 +1,22 @@
 from time import asctime
-
 from django.shortcuts import render
-from pymongo import MongoClient
-
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.contrib.auth import login, authenticate
 from django.shortcuts import redirect
-import json
-import requests
-from requests.auth import HTTPBasicAuth
-
-BOT_HOST = 'https://79d6-89-110-15-93.ngrok.io'
-MAIN_URL = f'{BOT_HOST}/api/'
+from core.database import DBMongoShow, DBMongoAdd, DBApiShow, DBApiAdd
 
 
 # Create your views here.
 def home(request):
-    url = 'mongodb+srv://places_spb:E34SBxaaz4qJ2PQ@places.cekmy.mongodb.net/test?authSource=admin&replicaSet=atlas-gv7ek5-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true'
-    client = MongoClient(url)
-    db = client["spb-bot"]
-    cursor = db["restaurants"].find({})
+    cursor = DBMongoShow()
     container = []
-    a = {}
+    context = {}
     for i in cursor:
         container.append(i)
-        a = {
+        context = {
             "restic": container
         }
-    return render(request, 'index.html', a)
+    return render(request, 'index.html', context)
 
 
 def addpage(request):
@@ -36,37 +24,25 @@ def addpage(request):
     context = {
 
     }
-    breakfast = False
-    dinner = False
-    lunch = False
-    european = False
-    authors = False
-    italian = False
-    asian = False
-    vegetarian = False
-    japan = False
-    cafe = False
-    restaurant = False
-    bar = False
-    shop = False
     req = request.GET
     id = req.get('id')
+    id = f'ObjectId("{id}")'
     name = req.get('name')
-    breakfast = req.get('breakfast')
-    dinner = req.get('dinner')
-    lunch = req.get('lunch')
-    european = req.get('european')
-    authors = req.get('authors')
-    italian = req.get('italian')
-    asian = req.get('asian')
-    vegetarian = req.get('vegetarian')
-    japan = req.get('japan')
-    cafe = req.get('cafe')
-    restaurant = req.get('restaurant')
-    bar = req.get('bar')
-    shop = req.get('shop')
+    breakfast = True if req.get('breakfast') == 'True' else False
+    dinner = True if req.get('dinner') == 'True' else False
+    lunch = True if req.get('lunch') == 'True' else False
+    european = True if req.get('european') == 'True' else False
+    authors = True if req.get('authors') == 'True' else False
+    italian = True if req.get('italian') == 'True' else False
+    asian = True if req.get('asian') == 'True' else False
+    vegetarian = True if req.get('vegetarian') == 'True' else False
+    japan = True if req.get('japan') == 'True' else False
+    cafe = True if req.get('cafe') == 'True' else False
+    restaurant = True if req.get('restaurant') == 'True' else False
+    bar = True if req.get('bar') == 'True' else False
+    shop = True if req.get('shop') == 'True' else False
     mean_prices = req.get('mean_prices')
-    links = req.get('links')
+    link = req.get('link')
     description = req.get('description')
     address = req.get('address')
     picture = req.get('picture')
@@ -74,38 +50,30 @@ def addpage(request):
     district = req.get('district')
     a = req.get('a')
     c = req.get('b')
-    b = {
-        '_id': f'ObjectId{id}',
-        'name': name,
-        'type_of_meal': {'breakfast': breakfast, 'dinner': dinner, 'lunch': lunch},
-        'type_of_food': {'italian': italian, 'european': european, 'vegetarian': vegetarian,
-                         'authors': authors, 'japan': japan, 'asian': asian},
-        'type_of_restaurant': {'cafe': cafe, 'restaurant': restaurant, 'bar': bar, 'shop': shop},
-        'mean_prices': mean_prices,
-        'links': links,
-        'description': description,
-        'address': address,
-        'picture': picture,
-        'time': time,
-        'district': district,
-        'location': {"type": "Point", 'coordinates': [float(a), float(c)]}
-    }
-    url = 'mongodb+srv://places_spb:E34SBxaaz4qJ2PQ@places.cekmy.mongodb.net/test?authSource=admin&replicaSet=atlas-gv7ek5-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true'
-    client = MongoClient(url)
-    db = client["spb-bot"]
-    if name is not None:
-        db["restaurants"].insert_one(b)
-    print(b)
+    if name is not None and name != '':
+        b = {
+            'name': name,
+            'type_of_meal': {'breakfast': breakfast, 'dinner': dinner, 'lunch': lunch},
+            'type_of_food': {'italian': italian, 'european': european, 'vegetarian': vegetarian,
+                             'authors': authors, 'japan': japan, 'asian': asian},
+            'type_of_restaurant': {'cafe': cafe, 'restaurant': restaurant, 'bar': bar, 'shop': shop},
+            'mean_prices': mean_prices,
+            'links': link,
+            'description': description,
+            'address': address,
+            'picture': picture,
+            'time': time,
+            'district': district,
+            'location': {"type": "Point", 'coordinates': [float(a), float(c)]}
+        }
+        DBMongoAdd(name, b)
     return render(request, template, context)
 
 
 def managebuttons(request):
     template = 'managebuttons.html'
-    data = {"login": "admin", "password": "admin123"}
-    session = requests.session()
-    r = session.post(url="https://79d6-89-110-15-93.ngrok.io/api/auth/login", json=data)
-    r = session.get(url="https://79d6-89-110-15-93.ngrok.io/api/interface_objects")
     container = []
+    r = DBApiShow()
     for i in r.json():
         if i["type"] == "keyboard":
             for k in i["buttons"]:
@@ -139,9 +107,7 @@ def managebuttons(request):
         'created_at': created_at,
         'updated_at': updated_at,
         'id': id}
-
-    r = session.post(url=f'https://79d6-89-110-15-93.ngrok.io/api/interface_objects/{id}', json=objects)
-
+    DBApiAdd(objects, id)
     return render(request, template, context)
 
 

@@ -1,27 +1,19 @@
 
 {% extends 'index.html' %}
 {% block adddata %}
-    <div class="col-4">
-    <table class="table table-bordered mt-4">
-        <thead>
-            <tr>
-                <th scope="col">Login</th>
-                <th scope="col">Password</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <form id="add_adm_form" method="get">
-                    <th scope="col"><input name = 'login' type="text"></th>
-                    <th scope="col"><input name = 'password' type="text"></th>
-
-                </form>
-            </tr>
-        </tbody>
-
-    </table>
+    <div class="mx-5 col-4 mt-4">
+    <form id="add_adm_form" method="get">
+    <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Login" aria-label="First name" name="login">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Password" aria-label="Last name" name="password">
+          </div>
     </div>
-    <button form="add_adm_form" type="submit" class="btn btn-primary">Войти</button>
+    </form>
+    <button form="add_adm_form" type="submit" class="btn btn-primary mt-4">Войти</button>
+    </div>
 {% endblock %}
 
 

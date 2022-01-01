@@ -1,37 +1,47 @@
 {% extends 'index.html' %}
 {% block adddata %}
-    {% for i in buttons.objects %}
-    <table class="table table-bordered mt-4">
-        <form id="add_form" method="get">
-            <tbody class="mt-0">
-                <tr>
-                    <th scope="col">Object</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Text</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Platform</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Updated at</th>
-                    <th scope="col">ID</th>
 
-                </tr>
-                <tr>
-
-                    <th scope="col"><input name = 'object' type="text" value="{{ i.object }}"></th>
-                    <th scope="col"><input name = 'type' type="text" value="{{ i.type }}"></th>
-                    <th scope="col"><input name = 'text' type="text"  value="{{ i.text }}"></th>
-                    <th scope="col"><input name = 'title' type="text" value="{{ i.title }}"></th>
-                    <th scope="col"><input name = 'platform' type="text" value="{{ i.platform }}"></th>
-                    <th scope="col"><input name = 'created_at' type="text" value="{{ i.created_at }}"></th>
-                    <th scope="col"><input name = 'updated_at' type="text" value="{{ i.updated_at }}"></th>
-                    <th scope="col"><input name = 'id' type="text" value="{{ i.id }}"></th>
-                </tr>
-            </tbody>
+{% for i in buttons.objects %}
+    <div class="container mt-4">
+        <form class="row g-3" method="get" id="add-form">
+            <div class="col-md-6">
+                <label for="Object" class="form-label">Object</label>
+                <input type="text" class="form-control" id="Object" value="{{ i.object }}">
+            </div>
+            <div class="col-md-6">
+                <label for="Type" class="form-label">Type</label>
+                <input type="text" class="form-control" id="Type" value="{{ i.type }}">
+            </div>
+            <div class="col-md-6">
+                <label for="Text" class="form-label">Text</label>
+                <input type="text" class="form-control" id="Text" value="{{ i.text }}">
+            </div>
+            <div class="col-md-6">
+                <label for="Title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="Title" value="{{ i.title }}">
+            </div>
+            <div class="col-md-6">
+                <label for="Platform" class="form-label">Platform</label>
+                <input type="text" class="form-control" id="Platform" value="{{ i.platform }}">
+            </div>
+            <div class="col-md-6">
+                <label for="created_at" class="form-label">Created at</label>
+                <input type="text" class="form-control" id="created_at" value="{{ i.created_at }}">
+            </div>
+            <div class="col-md-6">
+                <label for="updated_at" class="form-label">Updated at</label>
+                <input type="text" class="form-control" id="updated_at" value="{{ i.updated_at }}">
+            </div>
+            <div class="col-md-6">
+                <label for="ID" class="form-label">ID</label>
+                <input type="text" class="form-control" id="ID" value="{{ i.id }}">
+            </div>
+            <div class="col-12">
+                <button type="submit" form="add-form" class="btn btn-primary">Добавить</button>
+            </div>
         </form>
-    </table>
-    <button form="add_form" type="submit" class="btn btn-primary m-0">Подтвердить изменения</button>
-    {% endfor %}
-
+    </div>
+{% endfor %}
 {% endblock %}
 
 
